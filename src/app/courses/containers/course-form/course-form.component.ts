@@ -42,8 +42,13 @@ export class CourseFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.service.save(this.form.value)
-      .subscribe(result => this.onSuccess(), error => this.onError());
+    let value = this.form.value;
+    if ((!value.name) || (!value.category)) {
+      this.onReqquiredError();
+    } else {
+      this.service.save(this.form.value)
+        .subscribe(result => this.onSuccess(), error => this.onError());
+    }
   }
 
   onCancel() {
@@ -61,6 +66,14 @@ export class CourseFormComponent implements OnInit {
 
   onError() {
     this.snackBar.open('Erro ao Salvar curso', '', {
+      duration: 5000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
+    });
+  }
+
+  onReqquiredError() {
+    this.snackBar.open('Preencha todos os campos obrigatórios!', '', {
       duration: 5000,
       verticalPosition: 'top',
       horizontalPosition: 'center'
