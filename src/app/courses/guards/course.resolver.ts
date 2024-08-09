@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { Course } from '../model/course';
 import { CoursesService } from '../services/courses.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +17,6 @@ export class CourseResolver implements Resolve<Course> {
     if (route.params && route.params['id']) {
       return this.service.loadById(route.params['id']);
     }
-    return of({_id: '', name: '', category: ''});
+    return of({_id: '', name: '', category: '', lessons: [] });
   }
 }
