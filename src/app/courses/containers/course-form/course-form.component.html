@@ -20,10 +20,12 @@
 
       <mat-toolbar>
         <span>Aulas</span>
-        <button mat-icon-button color="accent">
+        <button mat-icon-button color="accent" (click)="addNewLesson()">
           <mat-icon aria-label="Adicionar nova aula">add</mat-icon>
         </button>
       </mat-toolbar>
+
+      <mat-error *ngIf=isFormArrayRequired() class="form-array-error">Adicione ao menos uma aula</mat-error>
 
       <table
         style="width: 100%"

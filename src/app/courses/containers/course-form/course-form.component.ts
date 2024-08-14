@@ -43,7 +43,7 @@ export class CourseFormComponent implements OnInit {
                            Validators.minLength(5),
                            Validators.maxLength(100)]],
       category: [course.category, [Validators.required]],
-      lessons: this.formBuilder.array(this.retrieveLessons(course))
+      lessons: this.formBuilder.array(this.retrieveLessons(course), Validators.required)
     });
     console.log(this.form);
     console.log(this.form.value);
@@ -62,8 +62,12 @@ export class CourseFormComponent implements OnInit {
   private createLesson(lesson: Lesson = { id: '', name: '', youtubeUrl: '' }) {
     return this.formBuilder.group({
       id: [lesson.id],
-      name: [lesson.name],
-      youtubeUrl: [lesson.youtubeUrl]
+      name: [lesson.name, [Validators.required,
+                           Validators.minLength(5),
+                           Validators.maxLength(100)]],
+      youtubeUrl: [lesson.youtubeUrl, [Validators.required,
+                                       Validators.minLength(10),
+                                       Validators.maxLength(11)]],
     });
   }
 
@@ -71,13 +75,22 @@ export class CourseFormComponent implements OnInit {
     return (<UntypedFormArray>this.form.get('lessons')).controls;
   }
 
+  addNewLesson() {
+    const lessons = this.form.get('lessons') as UntypedFormArray;
+    lessons.push(this.createLesson());
+  }
+
+  removeLesson(index: number) {
+    const lessons = this.form.get('lessons') as UntypedFormArray;
+    lessons.removeAt(index);
+  }
+
   onSubmit() {
-    let value = this.form.value;
-    if ((!value.name) || (!value.category)) {
-      this.onReqquiredError();
-    } else {
+    if (this.form.valid) {
       this.service.save(this.form.value)
         .subscribe(result => this.onSuccess(), error => this.onError());
+    } else {
+
     }
   }
 
@@ -128,6 +141,11 @@ export class CourseFormComponent implements OnInit {
     }
 
     return 'Campo Inválido';
+  }
+
+  isFormArrayRequired() {
+    const lessons = this.form.get('lessons') as UntypedFormArray;
+    return !lessons.valid && lessons.hasError('required') && lessons.touched;
   }
 
 }
