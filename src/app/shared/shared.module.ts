@@ -11,6 +11,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     ErrorDialogComponent,
     CategoryPipe,
     ConfirmationDialogComponent
+    
   ],
   imports: [
     CommonModule,
