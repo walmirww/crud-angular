@@ -47,7 +47,7 @@
               </mat-error>
             </mat-form-field>
           </td>
-          <td style="width: 30%">
+          <td style="width: 47 %">
             <mat-form-field class="full-width">
               <mat-label>URL</mat-label>
               <span matPrefix>https://youtu.be/</span>
@@ -60,6 +60,11 @@
                   }}
               </mat-error>
             </mat-form-field>
+          </td>
+          <td>
+            <button mat-icon-button color="warn" (click)="removeLesson(i)">
+              <mat-icon aria-label="Remover a aula">delete</mat-icon>
+            </button>
           </td>
         </tr>
       </table>
