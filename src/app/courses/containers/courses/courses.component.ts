@@ -11,11 +11,18 @@ import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/err
 import { Course } from '../../model/course';
 import { CoursePage } from '../../model/course-page';
 import { CoursesService } from '../../services/courses.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { CoursesListComponent } from '../../components/courses-list/courses-list.component';
+import { AsyncPipe } from '@angular/common';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatCard } from '@angular/material/card';
 
 @Component({
-  selector: 'app-courses',
-  templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.scss']
+    selector: 'app-courses',
+    templateUrl: './courses.component.html',
+    styleUrls: ['./courses.component.scss'],
+    standalone: true,
+    imports: [MatCard, MatToolbar, CoursesListComponent, MatPaginator, MatProgressSpinner, AsyncPipe]
 })
 export class CoursesComponent implements OnInit {
 
